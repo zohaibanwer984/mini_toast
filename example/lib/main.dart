@@ -76,14 +76,17 @@ class MyHomePage extends StatelessWidget {
                 QuickToast.instance.show(
                   message: 'First Toast',
                   variant: ToastVariant.info,
+                  duration: const Duration(seconds: 7),
                 );
                 QuickToast.instance.show(
                   message: 'Second Toast',
                   variant: ToastVariant.success,
+                  duration: const Duration(seconds: 3),
                 );
                 QuickToast.instance.show(
                   message: 'Third Toast',
                   variant: ToastVariant.error,
+                  duration: const Duration(seconds: 5),
                 );
               },
             ),

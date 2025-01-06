@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/toast_data.dart';
 
-const _kToastBottomMargin = 50.0;
-const _kToastHorizontalMargin = 20.0;
-
-class ToastView extends StatelessWidget {
+class ToastView extends StatefulWidget {
   final ToastData data;
   final VoidCallback onDismiss;
 
@@ -15,21 +12,63 @@ class ToastView extends StatelessWidget {
   });
 
   @override
+  State<ToastView> createState() => _ToastViewState();
+}
+
+class _ToastViewState extends State<ToastView>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _opacity;
+  late final Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+
+    _opacity = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+    ));
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0.0, 1.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+    ));
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: _kToastBottomMargin,
-      left: _kToastHorizontalMargin,
-      right: _kToastHorizontalMargin,
-      child: Material(
-        color: Colors.transparent,
-        child: AnimatedOpacity(
-          duration: const Duration(milliseconds: 300),
-          opacity: 1.0,
-          onEnd: onDismiss,
+    return SlideTransition(
+      position: _slideAnimation,
+      child: FadeTransition(
+        opacity: _opacity,
+        child: Material(
+          color: Colors.transparent,
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding: const EdgeInsets.symmetric(
+              vertical: 12,
+              horizontal: 16,
+            ),
             decoration: BoxDecoration(
-              color: data.variant.backgroundColor,
+              color: widget.data.variant.backgroundColor,
               borderRadius: BorderRadius.circular(8),
               boxShadow: const [
                 BoxShadow(
@@ -40,9 +79,9 @@ class ToastView extends StatelessWidget {
               ],
             ),
             child: Text(
-              data.message,
+              widget.data.message,
               style: TextStyle(
-                color: data.variant.textColor,
+                color: widget.data.variant.textColor,
                 fontSize: 16,
               ),
               textAlign: TextAlign.center,
