@@ -7,9 +7,9 @@ import 'toast_overlay.dart';
 
 const _kDefaultDuration = Duration(seconds: 3);
 
-class ToastManager {
-  static final ToastManager instance = ToastManager._();
-  ToastManager._();
+class QuickToast {
+  static final QuickToast instance = QuickToast._();
+  QuickToast._();
 
   final _queue = Queue<ToastData>();
   var _isShowing = false;

@@ -40,7 +40,7 @@ class MyHomePage extends StatelessWidget {
             _ToastButton(
               label: 'Show Success Toast',
               onPressed: () {
-                ToastManager.instance.show(
+                QuickToast.instance.show(
                   message: 'Operation completed successfully!',
                   variant: ToastVariant.success,
                   duration: const Duration(seconds: 2),
@@ -51,7 +51,7 @@ class MyHomePage extends StatelessWidget {
             _ToastButton(
               label: 'Show Error Toast',
               onPressed: () {
-                ToastManager.instance.show(
+                QuickToast.instance.show(
                   message: 'Something went wrong!',
                   variant: ToastVariant.error,
                   duration: const Duration(seconds: 3),
@@ -62,7 +62,7 @@ class MyHomePage extends StatelessWidget {
             _ToastButton(
               label: 'Show Info Toast',
               onPressed: () {
-                ToastManager.instance.show(
+                QuickToast.instance.show(
                   message: 'Here is some information',
                   variant: ToastVariant.info,
                   duration: const Duration(seconds: 2),
@@ -73,15 +73,15 @@ class MyHomePage extends StatelessWidget {
             _ToastButton(
               label: 'Show Multiple Toasts',
               onPressed: () {
-                ToastManager.instance.show(
+                QuickToast.instance.show(
                   message: 'First Toast',
                   variant: ToastVariant.info,
                 );
-                ToastManager.instance.show(
+                QuickToast.instance.show(
                   message: 'Second Toast',
                   variant: ToastVariant.success,
                 );
-                ToastManager.instance.show(
+                QuickToast.instance.show(
                   message: 'Third Toast',
                   variant: ToastVariant.error,
                 );
