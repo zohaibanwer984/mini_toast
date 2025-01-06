@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/toast_data.dart';
 
-const _kAnimationDuration = Duration(milliseconds: 300);
 const _kToastBottomMargin = 50.0;
 const _kToastHorizontalMargin = 20.0;
 
@@ -24,7 +23,7 @@ class ToastView extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: AnimatedOpacity(
-          duration: _kAnimationDuration,
+          duration: const Duration(milliseconds: 300),
           opacity: 1.0,
           onEnd: onDismiss,
           child: Container(
