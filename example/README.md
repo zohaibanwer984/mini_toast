@@ -6,7 +6,7 @@ his example demonstrates how to use the QuickToast library in a Flutter applicat
 
 2. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/quick_toast.git
+git clone https://github.com/zohaibanwer984/quick_toast.git
 cd quick_toast/example
 ```
 
