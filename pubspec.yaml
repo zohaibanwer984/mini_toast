@@ -1,0 +1,19 @@
+name: quick_toast
+description: A lightweight and easy-to-use toast notification library for Flutter
+version: 0.1.0+1
+homepage: https://github.com/zohaibanwer984/quick_toast
+platforms:
+  android:
+
+environment:
+  sdk: ">=3.0.0 <4.0.0" 
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
