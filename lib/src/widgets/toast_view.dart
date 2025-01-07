@@ -72,16 +72,28 @@ class _ToastViewState extends State<ToastView>
                 borderRadius: widget.config.borderRadius,
                 boxShadow: widget.config.boxShadow,
               ),
-              child: Text(
-                widget.data.message,
-                style: widget.config.textStyle?.copyWith(
-                      color: widget.data.variant.textColor,
-                    ) ??
-                    TextStyle(
-                      color: widget.data.variant.textColor,
-                      fontSize: 16,
-                    ),
-                textAlign: TextAlign.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                spacing: 8,
+                children: [
+                  Icon(
+                    widget.data.variant.icon,
+                    color: widget.data.iconColor ??
+                        widget.config.iconColor ??
+                        widget.data.variant.textColor,
+                  ),
+                  Text(
+                    widget.data.message,
+                    style: widget.config.textStyle?.copyWith(
+                          color: widget.data.variant.textColor,
+                        ) ??
+                        TextStyle(
+                          color: widget.data.variant.textColor,
+                          fontSize: 16,
+                        ),
+                    textAlign: TextAlign.center,
+                  )
+                ],
               ),
             ),
           ),

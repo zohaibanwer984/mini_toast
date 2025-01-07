@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
           fontSize: _fontSize,
           fontWeight: FontWeight.w500,
         ),
+        iconColor: Colors.red,
         horizontalPosition: _horizontalPosition,
         verticalPosition: _verticalPosition,
         slideDirection: _slideDirection,
@@ -235,6 +236,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       message: 'Success message with current settings',
                       variant: ToastVariant.success,
                     ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                    ),
                     child: const Text('Show Success Toast'),
                   ),
                 ),
@@ -269,12 +274,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         message: 'First Toast\nWith multiple lines\nof text',
                         variant: ToastVariant.info,
                         displayDuration: const Duration(seconds: 5),
+                        iconColor: Colors.deepPurple,
                       );
                       Future.delayed(const Duration(milliseconds: 200), () {
                         QuickToast.instance.show(
                           message: 'Second Toast',
                           variant: ToastVariant.success,
                           displayDuration: const Duration(seconds: 4),
+                          iconColor: Colors.lightGreen,
                         );
                       });
                       Future.delayed(const Duration(milliseconds: 400), () {
@@ -282,6 +289,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           message: 'Third Toast',
                           variant: ToastVariant.error,
                           displayDuration: const Duration(seconds: 3),
+                          iconColor: Colors.yellow,
                         );
                       });
                     },
