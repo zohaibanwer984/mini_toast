@@ -1,78 +1,94 @@
-import 'dart:collection';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+import 'configs/quick_toast_config.dart';
 import 'models/toast_data.dart';
 import 'models/toast_variant.dart';
-import 'widgets/toast_view.dart';
 import 'toast_overlay.dart';
-
-const _kDefaultDuration = Duration(seconds: 3);
+import 'widgets/toast_layout.dart';
+import 'widgets/toast_view.dart';
 
 class QuickToast {
   static final QuickToast instance = QuickToast._();
   QuickToast._();
 
-  final _queue = Queue<ToastData>();
-  var _isShowing = false;
-  OverlayEntry? _currentEntry;
+  final List<ActiveToast> _activeToasts = [];
+  QuickToastConfig _config = const QuickToastConfig();
+
+  void setConfig(QuickToastConfig config) => _config = config;
 
   void show({
     required String message,
     ToastVariant variant = ToastVariant.info,
-    Duration duration = _kDefaultDuration,
+    Duration? displayDuration,
+    TextStyle? textStyle,
   }) {
-    _queue.add(ToastData(
-      message: message,
-      variant: variant,
-      duration: duration,
-    ));
-    _processNextToast();
-  }
-
-  void _processNextToast() {
-    if (_isShowing || _queue.isEmpty) return;
-
     final overlayState = _getOverlayState();
     if (overlayState == null) return;
 
-    _isShowing = true;
-    final toast = _queue.removeFirst();
+    final toastData = ToastData(
+      message: message,
+      variant: variant,
+      duration: displayDuration ?? _config.displayDuration,
+      textStyle: textStyle,
+      horizontalPosition: _config.horizontalPosition,
+      verticalPosition: _config.verticalPosition,
+    );
 
-    _currentEntry = OverlayEntry(
-      builder: (context) => ToastView(
-        data: toast,
-        onDismiss: _dismissCurrentToast,
+    final toast = ActiveToast(
+      data: toastData,
+      entry: null, // Will be set below
+      height: null, // Initially null, will be measured
+    );
+
+    late OverlayEntry entry;
+    entry = OverlayEntry(
+      builder: (context) => ToastLayout(
+        position: _activeToasts.indexWhere((t) => t.entry == entry),
+        config: _config,
+        previousToasts: _activeToasts.where((t) => t.entry != entry).toList(),
+        onHeightMeasured: (height) {
+          if (toast.height != height) {
+            toast.height = height;
+            _activeToasts.where((t) => t != toast).forEach((t) => t.entry?.markNeedsBuild());
+          }
+        },
+        child: ToastView(
+          data: toastData,
+          config: _config,
+          onDismiss: () => _removeToast(entry),
+        ),
       ),
     );
 
-    overlayState.insert(_currentEntry!);
+    toast.entry = entry;
+    _activeToasts.add(toast);
+    overlayState.insert(entry);
 
-    Future.delayed(toast.duration, _dismissCurrentToast);
+    Future.delayed(toastData.duration, () => _removeToast(entry));
   }
 
-  void _dismissCurrentToast() {
-    if (_currentEntry?.mounted ?? false) {
-      _currentEntry?.remove();
-      _currentEntry = null;
-      _isShowing = false;
-      _processNextToast();
+  void _removeToast(OverlayEntry entry) {
+    final index = _activeToasts.indexWhere((toast) => toast.entry == entry);
+    if (index != -1) {
+      entry.remove();
+      _activeToasts.removeAt(index);
+      for (var toast in _activeToasts) {
+        toast.entry?.markNeedsBuild();
+      }
     }
   }
 
-  OverlayState? _getOverlayState() {
-    final state = overlayKey.currentState;
-    assert(() {
-      if (state == null) {
-        throw FlutterError('''
-ToastOverlayState not found. Ensure ToastOverlayWrapper is in your widget tree:
-  ToastOverlayWrapper(
-    child: MaterialApp(
-      home: YourHomePage(),
-    ),
-  );
-''');
-      }
-      return true;
-    }());
-    return state?.overlayState;
-  }
+  OverlayState? _getOverlayState() => overlayKey.currentState?.overlayState;
+}
+
+class ActiveToast {
+  final ToastData data;
+  OverlayEntry? entry;
+  double? height;
+
+  ActiveToast({
+    required this.data,
+    required this.entry,
+    required this.height,
+  });
 }
