@@ -1,3 +1,4 @@
+![DEMO IMAGE](./demo.gif)
 # QuickToast 🍞
 
 A lightweight, flexible toast notification library for Flutter that automatically handles varying content sizes and provides smooth animations. QuickToast makes it simple to display beautiful, stacked notifications in your Flutter apps with minimal setup.
