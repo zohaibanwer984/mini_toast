@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'configs/quick_toast_config.dart';
 import 'models/toast_data.dart';
@@ -22,6 +21,7 @@ class QuickToast {
     ToastVariant variant = ToastVariant.info,
     Duration? displayDuration,
     TextStyle? textStyle,
+    Color? iconColor,
   }) {
     final overlayState = _getOverlayState();
     if (overlayState == null) return;
@@ -31,6 +31,7 @@ class QuickToast {
       variant: variant,
       duration: displayDuration ?? _config.displayDuration,
       textStyle: textStyle,
+      iconColor: iconColor,
       horizontalPosition: _config.horizontalPosition,
       verticalPosition: _config.verticalPosition,
     );

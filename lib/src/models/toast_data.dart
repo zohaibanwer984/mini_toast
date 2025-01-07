@@ -8,6 +8,7 @@ class ToastData {
   final ToastVariant variant;
   final Duration duration;
   final TextStyle? textStyle;
+  final Color? iconColor;
   final ToastVerticalPosition verticalPosition;
   final ToastHorizontalPosition horizontalPosition;
 
@@ -16,6 +17,7 @@ class ToastData {
     this.variant = ToastVariant.info,
     this.duration = const Duration(seconds: 3),
     this.textStyle,
+    this.iconColor,
     required this.verticalPosition,
     required this.horizontalPosition,
   });

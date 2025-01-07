@@ -16,6 +16,7 @@ class QuickToastConfig {
   final List<BoxShadow>? boxShadow;
   final BorderRadius borderRadius;
   final EdgeInsets contentPadding;
+  final Color? iconColor;
 
   const QuickToastConfig({
     this.textStyle,
@@ -38,6 +39,7 @@ class QuickToastConfig {
       vertical: 12,
       horizontal: 16,
     ),
+    this.iconColor,
   });
 
   Alignment get alignment => Alignment(
