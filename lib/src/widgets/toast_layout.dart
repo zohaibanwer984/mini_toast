@@ -36,7 +36,7 @@ class ToastLayout extends StatelessWidget {
               ),
               child: _MeasureSize(
                 onChange: onHeightMeasured,
-                child: child,
+                child: Container(child: child),
               ),
             ),
           ),

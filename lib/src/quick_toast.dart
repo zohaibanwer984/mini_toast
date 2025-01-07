@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'configs/quick_toast_config.dart';
@@ -45,17 +46,22 @@ class QuickToast {
       builder: (context) => ToastLayout(
         position: _activeToasts.indexWhere((t) => t.entry == entry),
         config: _config,
-        previousToasts: _activeToasts.where((t) => t.entry != entry).toList(),
+        previousToasts: _activeToasts,
         onHeightMeasured: (height) {
           if (toast.height != height) {
             toast.height = height;
-            _activeToasts.where((t) => t != toast).forEach((t) => t.entry?.markNeedsBuild());
+            _activeToasts
+                .where((t) => t != toast)
+                .forEach((t) => t.entry?.markNeedsBuild());
           }
         },
-        child: ToastView(
-          data: toastData,
-          config: _config,
-          onDismiss: () => _removeToast(entry),
+        child: Material(
+          type: MaterialType.transparency,
+          child: ToastView(
+            data: toastData,
+            config: _config,
+            onDismiss: () => _removeToast(entry),
+          ),
         ),
       ),
     );
