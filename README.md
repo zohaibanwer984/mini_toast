@@ -1,74 +1,99 @@
-# QuickToast 🍞  
+# QuickToast 🍞
 
-A lightweight and easy-to-use toast notification library for Flutter. QuickToast makes it simple to display customizable, elegant toast notifications in your Flutter apps with minimal setup.
+A lightweight, flexible toast notification library for Flutter that automatically handles varying content sizes and provides smooth animations. QuickToast makes it simple to display beautiful, stacked notifications in your Flutter apps with minimal setup.
 
----
+## ✨ Features
 
-## ✨ Features  
-- 🟢 **Success Toasts**: Notify users about successful operations.  
-- 🔴 **Error Toasts**: Display error messages gracefully.  
-- 🔵 **Info Toasts**: Share informational messages with users.  
-- ⏱ **Customizable Duration**: Control how long a toast is visible.  
-- 📜 **Queue System**: Manage multiple toasts effortlessly.  
-- 🔄 **Simple API**: Built-in `ToastManager` singleton for easy use.  
+- 🎯 **Smart Positioning**: Automatically handles varying toast heights and stacks them properly
+- 🎨 **Variants with Icons**: 
+  - 🟢 Success toasts with check icon
+  - 🔴 Error toasts with cancel icon
+  - 🔵 Info toasts with info icon
+- 📐 **Flexible Placement**:
+  - Vertical: Top or bottom
+  - Horizontal: Left, center, or right
+- ⚡ **Smooth Animations**: 
+  - Fade in/out
+  - Customizable slide directions
+- 🎛️ **Rich Customization**:
+  - Duration control
+  - Custom text styles
+  - Icon colors
+  - Spacing and margins
+  - Shadow and border radius
+- 📦 **Simple Integration**: Just wrap your app and start showing toasts
 
----
+## 📦 Installation
 
-## 📦 Installation  
-
-Add QuickToast to your `pubspec.yaml`:  
+Add QuickToast to your `pubspec.yaml`:
 ```yaml
 dependencies:
-  quick_toast: ^0.1.0
+  quick_toast: ^1.0.0
 ```
 
-Run `flutter pub get` to fetch the package.
+## 🚀 Usage
 
----
+### 1. Wrap Your App
 
-## 🚀 Getting Started  
+First, wrap your app with `ToastOverlayWrapper`:
 
-### Wrap Your App  
-
-To enable QuickToast, wrap your app in `ToastOverlayWrapper`:  
 ```dart
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ToastOverlayWrapper(
+  runApp(
+    ToastOverlayWrapper(
       child: MaterialApp(
-        title: 'QuickToast Demo',
-        home: const MyHomePage(),
+        home: MyHomePage(),
       ),
-    );
-  }
+    ),
+  );
 }
 ```
 
----
+### 2. Show Toasts
 
-### Display a Toast  
+Use the `QuickToast.instance` to display toasts:
 
-Use the `ToastManager` singleton to show toasts:  
 ```dart
-ToastManager.instance.show(
+// Success toast
+QuickToast.instance.show(
   message: 'Operation completed successfully!',
-  variant: ToastVariant.success,  // success, error, or info
-  duration: const Duration(seconds: 2),
+  variant: ToastVariant.success,
+);
+
+// Error toast
+QuickToast.instance.show(
+  message: 'Something went wrong',
+  variant: ToastVariant.error,
+);
+
+// Info toast
+QuickToast.instance.show(
+  message: 'New message received',
+  variant: ToastVariant.info,
 );
 ```
 
----
+### 3. Customize Appearance
 
-## 🧑‍💻 Example  
+Configure global toast settings:
 
-Here’s a complete example demonstrating various types of toasts:  
+```dart
+QuickToast.instance.setConfig(
+  QuickToastConfig(
+    verticalPosition: ToastVerticalPosition.bottom,
+    horizontalPosition: ToastHorizontalPosition.center,
+    displayDuration: const Duration(seconds: 3),
+    animationDuration: const Duration(milliseconds: 300),
+    toastSpacing: 8.0,
+    textStyle: const TextStyle(fontSize: 16),
+    iconColor: Colors.white,
+    // ... other customization options
+  ),
+);
+```
+
+## 🎯 Complete Example
+
 ```dart
 import 'package:flutter/material.dart';
 import 'package:quick_toast/quick_toast.dart';
@@ -84,28 +109,36 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ToastOverlayWrapper(
       child: MaterialApp(
-        home: const MyHomePage(),
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('QuickToast Example')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            ToastManager.instance.show(
-              message: 'Hello from QuickToast!',
-              variant: ToastVariant.info,
-            );
-          },
-          child: const Text('Show Toast'),
+        home: Scaffold(
+          appBar: AppBar(title: const Text('QuickToast Demo')),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () => QuickToast.instance.show(
+                    message: 'Success!',
+                    variant: ToastVariant.success,
+                  ),
+                  child: const Text('Show Success Toast'),
+                ),
+                ElevatedButton(
+                  onPressed: () => QuickToast.instance.show(
+                    message: 'Error occurred!',
+                    variant: ToastVariant.error,
+                  ),
+                  child: const Text('Show Error Toast'),
+                ),
+                ElevatedButton(
+                  onPressed: () => QuickToast.instance.show(
+                    message: 'Just FYI!',
+                    variant: ToastVariant.info,
+                  ),
+                  child: const Text('Show Info Toast'),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -113,13 +146,22 @@ class MyHomePage extends StatelessWidget {
 }
 ```
 
----
+## 🔧 Configuration Options
 
-## 🎨 Customization  
+The `QuickToastConfig` class provides these customization options:
 
-QuickToast provides predefined `ToastVariant`s (`success`, `error`, `info`), but you can customize the look and feel of your toasts by extending its functionality (coming soon).  
-
----
+- `textStyle`: Custom text style for toast messages
+- `verticalPosition`: Top or bottom placement
+- `horizontalPosition`: Left, center, or right alignment
+- `slideDirection`: Animation slide direction
+- `displayDuration`: How long toasts remain visible
+- `animationDuration`: Length of show/hide animations
+- `toastSpacing`: Space between stacked toasts
+- `margin`: Edge margins for toast positioning
+- `boxShadow`: Customizable shadow effect
+- `borderRadius`: Corner rounding
+- `contentPadding`: Inner padding
+- `iconColor`: Color for variant icons
 
 ## 🧾 License  
 
