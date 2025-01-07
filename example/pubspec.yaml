@@ -1,5 +1,5 @@
-name: quick_toast_example
-description: Example app for QuickToast library
+name: mini_toast_example
+description: Example app for MiniToast library
 publish_to: none
 version: 1.0.0+1
 
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  quick_toast:
+  mini_toast:
     path: ../
 
 dev_dependencies:

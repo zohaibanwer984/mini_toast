@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/quick_toast.iml" filepath="$PROJECT_DIR$/quick_toast.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mini_toast.iml" filepath="$PROJECT_DIR$/mini_toast.iml" />
     </modules>
   </component>
 </project>

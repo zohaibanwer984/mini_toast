@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../configs/quick_toast_config.dart';
+import '../configs/mini_toast_config.dart';
 import '../models/toast_data.dart';
 import '../utils/toast_slide_extension.dart';
 
@@ -11,16 +11,16 @@ import '../utils/toast_slide_extension.dart';
 ///
 /// **Key Features:**
 /// - Slide and fade animations.
-/// - Customizable appearance based on `ToastData` and `QuickToastConfig`.
+/// - Customizable appearance based on `ToastData` and `MiniToastConfig`.
 /// - Automatically dismisses itself when animation completes.
 ///
-/// This widget is used internally by the QuickToast library.
+/// This widget is used internally by the MiniToast library.
 class ToastView extends StatefulWidget {
   /// The data that defines the content and style of the toast.
   final ToastData data;
 
   /// The configuration for the toast's appearance and behavior.
-  final QuickToastConfig config;
+  final MiniToastConfig config;
 
   /// Callback invoked when the toast is dismissed.
   final VoidCallback onDismiss;

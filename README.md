@@ -1,7 +1,7 @@
 ![DEMO IMAGE](./demo.gif)
-# QuickToast 🍞
+# MiniToast 🍞
 
-A lightweight, flexible toast notification library for Flutter that automatically handles varying content sizes and provides smooth animations. QuickToast makes it simple to display beautiful, stacked notifications in your Flutter apps with minimal setup.
+A lightweight, flexible toast notification library for Flutter that automatically handles varying content sizes and provides smooth animations. MiniToast makes it simple to display beautiful, stacked notifications in your Flutter apps with minimal setup.
 
 ## ✨ Features
 
@@ -26,10 +26,10 @@ A lightweight, flexible toast notification library for Flutter that automaticall
 
 ## 📦 Installation
 
-Add QuickToast to your `pubspec.yaml`:
+Add MiniToast to your `pubspec.yaml`:
 ```yaml
 dependencies:
-  quick_toast: ^1.0.0
+  mini_toast: ^1.0.0
 ```
 
 ## 🚀 Usage
@@ -52,23 +52,23 @@ void main() {
 
 ### 2. Show Toasts
 
-Use the `QuickToast.instance` to display toasts:
+Use the `MiniToast.instance` to display toasts:
 
 ```dart
 // Success toast
-QuickToast.instance.show(
+MiniToast.instance.show(
   message: 'Operation completed successfully!',
   variant: ToastVariant.success,
 );
 
 // Error toast
-QuickToast.instance.show(
+MiniToast.instance.show(
   message: 'Something went wrong',
   variant: ToastVariant.error,
 );
 
 // Info toast
-QuickToast.instance.show(
+MiniToast.instance.show(
   message: 'New message received',
   variant: ToastVariant.info,
 );
@@ -79,8 +79,8 @@ QuickToast.instance.show(
 Configure global toast settings:
 
 ```dart
-QuickToast.instance.setConfig(
-  QuickToastConfig(
+MiniToast.instance.setConfig(
+  MiniToastConfig(
     verticalPosition: ToastVerticalPosition.bottom,
     horizontalPosition: ToastHorizontalPosition.center,
     displayDuration: const Duration(seconds: 3),
@@ -97,7 +97,7 @@ QuickToast.instance.setConfig(
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:quick_toast/quick_toast.dart';
+import 'package:mini_toast/mini_toast.dart';
 
 void main() {
   runApp(const MyApp());
@@ -111,27 +111,27 @@ class MyApp extends StatelessWidget {
     return ToastOverlayWrapper(
       child: MaterialApp(
         home: Scaffold(
-          appBar: AppBar(title: const Text('QuickToast Demo')),
+          appBar: AppBar(title: const Text('MiniToast Demo')),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () => QuickToast.instance.show(
+                  onPressed: () => MiniToast.instance.show(
                     message: 'Success!',
                     variant: ToastVariant.success,
                   ),
                   child: const Text('Show Success Toast'),
                 ),
                 ElevatedButton(
-                  onPressed: () => QuickToast.instance.show(
+                  onPressed: () => MiniToast.instance.show(
                     message: 'Error occurred!',
                     variant: ToastVariant.error,
                   ),
                   child: const Text('Show Error Toast'),
                 ),
                 ElevatedButton(
-                  onPressed: () => QuickToast.instance.show(
+                  onPressed: () => MiniToast.instance.show(
                     message: 'Just FYI!',
                     variant: ToastVariant.info,
                   ),
@@ -149,7 +149,7 @@ class MyApp extends StatelessWidget {
 
 ## 🔧 Configuration Options
 
-The `QuickToastConfig` class provides these customization options:
+The `MiniToastConfig` class provides these customization options:
 
 - `textStyle`: Custom text style for toast messages
 - `verticalPosition`: Top or bottom placement
@@ -166,10 +166,10 @@ The `QuickToastConfig` class provides these customization options:
 
 ## 🧾 License  
 
-This project is licensed under the [Apache License](https://github.com/zohaibanwer984/quick_toast/blob/main/LICENSE).
+This project is licensed under the [Apache License](https://github.com/zohaibanwer984/mini_toast/blob/main/LICENSE).
 
 ---
 
 ## 🤝 Contributing  
 
-Found a bug or have an idea for a new feature? Feel free to [open an issue](https://github.com/zohaibanwer984/quick_toast/issues) or submit a pull request.  
+Found a bug or have an idea for a new feature? Feel free to [open an issue](https://github.com/zohaibanwer984/mini_toast/issues) or submit a pull request.  

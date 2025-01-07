@@ -1,11 +1,11 @@
-/// The `QuickToast` library for customizable toast notifications in Flutter.
-library quick_toast;
+/// The `MiniToast` library for customizable toast notifications in Flutter.
+library;
 
 // Main API for managing toast notifications.
-export 'src/quick_toast.dart';
+export 'src/mini_toast.dart';
 
 // Configuration for toast appearance and behavior.
-export 'src/configs/quick_toast_config.dart';
+export 'src/configs/mini_toast_config.dart';
 
 // Enums for toast position and slide direction.
 export 'src/enums/toast_position.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quick_toast/quick_toast.dart';
+import 'package:mini_toast/mini_toast.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ToastOverlayWrapper(
       child: MaterialApp(
-        title: 'QuickToast Demo',
+        title: 'MiniToast Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
@@ -39,8 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
   double _fontSize = 16.0;
 
   void _updateToastConfig() {
-    QuickToast.instance.setConfig(
-      QuickToastConfig(
+    MiniToast.instance.setConfig(
+      MiniToastConfig(
         textStyle: TextStyle(
           fontSize: _fontSize,
           fontWeight: FontWeight.w500,
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('QuickToast Features Demo'),
+        title: const Text('MiniToast Features Demo'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SingleChildScrollView(
@@ -232,7 +232,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => QuickToast.instance.show(
+                    onPressed: () => MiniToast.instance.show(
                       message: 'Success message with current settings',
                       variant: ToastVariant.success,
                     ),
@@ -250,7 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => QuickToast.instance.show(
+                    onPressed: () => MiniToast.instance.show(
                       message: 'Error message with current settings',
                       variant: ToastVariant.error,
                     ),
@@ -270,14 +270,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ElevatedButton(
                     onPressed: () {
                       // Show multiple toasts with different configurations
-                      QuickToast.instance.show(
+                      MiniToast.instance.show(
                         message: 'First Toast\nWith multiple lines\nof text',
                         variant: ToastVariant.info,
                         displayDuration: const Duration(seconds: 5),
                         iconColor: Colors.deepPurple,
                       );
                       Future.delayed(const Duration(milliseconds: 200), () {
-                        QuickToast.instance.show(
+                        MiniToast.instance.show(
                           message: 'Second Toast',
                           variant: ToastVariant.success,
                           displayDuration: const Duration(seconds: 4),
@@ -285,7 +285,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         );
                       });
                       Future.delayed(const Duration(milliseconds: 400), () {
-                        QuickToast.instance.show(
+                        MiniToast.instance.show(
                           message: 'Third Toast',
                           variant: ToastVariant.error,
                           displayDuration: const Duration(seconds: 3),

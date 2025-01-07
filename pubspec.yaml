@@ -1,7 +1,7 @@
-name: quick_toast
+name: mini_toast
 description: A lightweight and easy-to-use toast notification library for Flutter
 version: 1.0.0
-homepage: https://github.com/zohaibanwer984/quick_toast
+homepage: https://github.com/zohaibanwer984/mini_toast
 platforms:
   android:
 

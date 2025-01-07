@@ -17,4 +17,4 @@
     - Content padding and margins
     - Border radius and box shadow
     - Toast spacing
-  - Simple singleton API with QuickToast.instance
+  - Simple singleton API with MiniToast.instance

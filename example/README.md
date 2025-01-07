@@ -1,4 +1,4 @@
-his example demonstrates how to use the QuickToast library in a Flutter application.
+his example demonstrates how to use the MiniToast library in a Flutter application.
 
 ## Getting Started
 
@@ -6,8 +6,8 @@ his example demonstrates how to use the QuickToast library in a Flutter applicat
 
 2. Clone this repository:
 ```bash
-git clone https://github.com/zohaibanwer984/quick_toast.git
-cd quick_toast/example
+git clone https://github.com/zohaibanwer984/mini_toast.git
+cd mini_toast/example
 ```
 
 3. Install dependencies:

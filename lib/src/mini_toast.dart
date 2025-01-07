@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'configs/quick_toast_config.dart';
+import 'configs/mini_toast_config.dart';
 import 'models/toast_data.dart';
 import 'models/toast_variant.dart';
 import 'toast_overlay.dart';
@@ -9,23 +9,23 @@ import 'widgets/toast_view.dart';
 
 /// A singleton class for managing and displaying toast notifications.
 ///
-/// The `QuickToast` class handles the creation, configuration, and lifecycle
+/// The `MiniToast` class handles the creation, configuration, and lifecycle
 /// of toast messages. It uses an [Overlay] to display toasts on top of the current UI.
-class QuickToast {
-  /// The singleton instance of `QuickToast`.
-  static final QuickToast instance = QuickToast._();
+class MiniToast {
+  /// The singleton instance of `MiniToast`.
+  static final MiniToast instance = MiniToast._();
 
   /// Private constructor to prevent external instantiation.
-  QuickToast._();
+  MiniToast._();
 
   /// A list of currently active toasts being displayed.
   final List<ActiveToast> _activeToasts = [];
 
   /// Configuration settings for toasts, which can be customized globally.
-  QuickToastConfig _config = const QuickToastConfig();
+  MiniToastConfig _config = const MiniToastConfig();
 
   /// Updates the global configuration for all toasts.
-  void setConfig(QuickToastConfig config) => _config = config;
+  void setConfig(MiniToastConfig config) => _config = config;
 
   /// Displays a toast notification with the given parameters.
   ///

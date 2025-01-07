@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-import '../quick_toast.dart';
-import '../configs/quick_toast_config.dart';
+import '../mini_toast.dart';
+import '../configs/mini_toast_config.dart';
 import '../enums/toast_position.dart';
 
 /// A layout widget for positioning and managing the display of toast notifications.
@@ -17,7 +17,7 @@ class ToastLayout extends StatelessWidget {
   final Widget child;
 
   /// Configuration for the toast's appearance and layout.
-  final QuickToastConfig config;
+  final MiniToastConfig config;
 
   /// A list of active toasts that precede this one.
   final List<ActiveToast> previousToasts;

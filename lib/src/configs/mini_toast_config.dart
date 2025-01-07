@@ -4,11 +4,11 @@ import '../utils/toast_position_extension.dart';
 import '../enums/toast_position.dart';
 import '../enums/toast_slide_direction.dart';
 
-/// Configuration class for customizing the appearance and behavior of toasts in `QuickToast`.
+/// Configuration class for customizing the appearance and behavior of toasts in `MiniToast`.
 ///
 /// This class provides various properties to adjust the layout, animations,
 /// and visual style of toasts, allowing you to tailor the toast experience to your needs.
-class QuickToastConfig {
+class MiniToastConfig {
   /// The text style to apply to the toast message.
   ///
   /// If null, the default text style of the current theme will be used.
@@ -76,11 +76,11 @@ class QuickToastConfig {
   /// If null, the default color based on the toast's theme or variant is used.
   final Color? iconColor;
 
-  /// Creates a new instance of `QuickToastConfig` with customizable properties.
+  /// Creates a new instance of `MiniToastConfig` with customizable properties.
   ///
   /// Example:
   /// ```dart
-  /// QuickToastConfig(
+  /// MiniToastConfig(
   ///   verticalPosition: ToastVerticalPosition.top,
   ///   horizontalPosition: ToastHorizontalPosition.right,
   ///   slideDirection: ToastSlideDirection.left,
@@ -88,7 +88,7 @@ class QuickToastConfig {
   ///   boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 4)],
   /// );
   /// ```
-  const QuickToastConfig({
+  const MiniToastConfig({
     this.textStyle,
     this.verticalPosition = ToastVerticalPosition.bottom,
     this.horizontalPosition = ToastHorizontalPosition.center,
@@ -131,7 +131,7 @@ class QuickToastConfig {
   ///   margin: EdgeInsets.all(10),
   /// );
   /// ```
-  QuickToastConfig copyWith({
+  MiniToastConfig copyWith({
     TextStyle? textStyle,
     ToastVerticalPosition? verticalPosition,
     ToastHorizontalPosition? horizontalPosition,
@@ -145,7 +145,7 @@ class QuickToastConfig {
     EdgeInsets? contentPadding,
     Color? iconColor,
   }) {
-    return QuickToastConfig(
+    return MiniToastConfig(
       textStyle: textStyle ?? this.textStyle,
       verticalPosition: verticalPosition ?? this.verticalPosition,
       horizontalPosition: horizontalPosition ?? this.horizontalPosition,
