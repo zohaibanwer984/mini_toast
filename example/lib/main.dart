@@ -10,6 +10,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Set global toast configuration
+    QuickToast.instance.setConfig(
+      QuickToastConfig(
+        textStyle: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+        alignment: Alignment.topRight,
+        slideDirection: ToastSlideDirection.left,
+        displayDuration: Duration(seconds: 5),
+        animationDuration: Duration(milliseconds: 400),
+        margin: EdgeInsets.all(16),
+      ),
+    );
     return ToastOverlayWrapper(
       child: MaterialApp(
         title: 'QuickToast Demo',

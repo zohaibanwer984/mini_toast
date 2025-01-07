@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+import 'package:quick_toast/src/configs/quick_toast_config.dart';
+
 import 'toast_variant.dart';
 
 /// Encapsulates the data required to display a toast notification.
@@ -36,5 +39,8 @@ class ToastData {
     required this.message,
     this.variant = ToastVariant.info,
     this.duration = const Duration(seconds: 3),
+    TextStyle? textStyle,
+    required Alignment alignment,
+    required ToastSlideDirection slideDirection,
   });
 }
