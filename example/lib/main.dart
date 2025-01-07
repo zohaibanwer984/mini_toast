@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ToastVerticalPosition _verticalPosition = ToastVerticalPosition.bottom;
   ToastHorizontalPosition _horizontalPosition = ToastHorizontalPosition.center;
   ToastSlideDirection _slideDirection = ToastSlideDirection.bottom;
-  Duration _displayDuration = const Duration(seconds: 3);
+  final Duration _displayDuration = const Duration(seconds: 3);
   Duration _animationDuration = const Duration(milliseconds: 300);
   double _fontSize = 16.0;
 
@@ -50,11 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
         slideDirection: _slideDirection,
         displayDuration: _displayDuration,
         animationDuration: _animationDuration,
+        contentPadding: EdgeInsets.all(12),
+        toastSpacing: 10,
         margin: const EdgeInsets.all(16),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withAlpha(150),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),

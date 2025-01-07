@@ -11,7 +11,7 @@ class QuickToast {
   static final QuickToast instance = QuickToast._();
   QuickToast._();
 
-  final List<_ActiveToast> _activeToasts = [];
+  final List<ActiveToast> _activeToasts = [];
   QuickToastConfig _config = const QuickToastConfig();
 
   void setConfig(QuickToastConfig config) => _config = config;
@@ -34,11 +34,24 @@ class QuickToast {
       verticalPosition: _config.verticalPosition,
     );
 
+    final toast = ActiveToast(
+      data: toastData,
+      entry: null, // Will be set below
+      height: null, // Initially null, will be measured
+    );
+
     late OverlayEntry entry;
     entry = OverlayEntry(
       builder: (context) => ToastLayout(
         position: _activeToasts.indexWhere((t) => t.entry == entry),
         config: _config,
+        previousToasts: _activeToasts.where((t) => t.entry != entry).toList(),
+        onHeightMeasured: (height) {
+          if (toast.height != height) {
+            toast.height = height;
+            _activeToasts.where((t) => t != toast).forEach((t) => t.entry?.markNeedsBuild());
+          }
+        },
         child: ToastView(
           data: toastData,
           config: _config,
@@ -47,7 +60,8 @@ class QuickToast {
       ),
     );
 
-    _activeToasts.add(_ActiveToast(data: toastData, entry: entry));
+    toast.entry = entry;
+    _activeToasts.add(toast);
     overlayState.insert(entry);
 
     Future.delayed(toastData.duration, () => _removeToast(entry));
@@ -59,7 +73,7 @@ class QuickToast {
       entry.remove();
       _activeToasts.removeAt(index);
       for (var toast in _activeToasts) {
-        toast.entry.markNeedsBuild();
+        toast.entry?.markNeedsBuild();
       }
     }
   }
@@ -67,9 +81,14 @@ class QuickToast {
   OverlayState? _getOverlayState() => overlayKey.currentState?.overlayState;
 }
 
-class _ActiveToast {
+class ActiveToast {
   final ToastData data;
-  final OverlayEntry entry;
+  OverlayEntry? entry;
+  double? height;
 
-  _ActiveToast({required this.data, required this.entry});
+  ActiveToast({
+    required this.data,
+    required this.entry,
+    required this.height,
+  });
 }
