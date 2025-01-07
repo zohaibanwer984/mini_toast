@@ -1,48 +1,26 @@
 import 'package:flutter/material.dart';
 
-/// Defines the direction from which the toast will slide in
-enum ToastSlideDirection {
-  left,
-  right,
-  top,
-  bottom,
-}
+import '../utils/toast_position_extension.dart';
+import '../enums/toast_position.dart';
+import '../enums/toast_slide_direction.dart';
 
-/// Global configuration for QuickToast
 class QuickToastConfig {
-  /// Default text style for all toasts
   final TextStyle? textStyle;
-
-  /// Default position for toasts
-  final Alignment alignment;
-
-  /// Direction from which toasts slide in
+  final ToastVerticalPosition verticalPosition;
+  final ToastHorizontalPosition horizontalPosition;
   final ToastSlideDirection slideDirection;
-
-  /// Default duration for which toasts are shown
   final Duration displayDuration;
-
-  /// Duration of the slide/fade animations
   final Duration animationDuration;
-
-  /// Spacing between multiple toasts
   final double toastSpacing;
-
-  /// Margin from the edges of the screen
   final EdgeInsets margin;
-
-  /// Shadow configuration for toast containers
   final List<BoxShadow>? boxShadow;
-
-  /// Border radius for toast containers
   final BorderRadius borderRadius;
-
-  /// Padding inside toast containers
   final EdgeInsets contentPadding;
 
   const QuickToastConfig({
     this.textStyle,
-    this.alignment = Alignment.bottomCenter,
+    this.verticalPosition = ToastVerticalPosition.bottom,
+    this.horizontalPosition = ToastHorizontalPosition.center,
     this.slideDirection = ToastSlideDirection.bottom,
     this.displayDuration = const Duration(seconds: 3),
     this.animationDuration = const Duration(milliseconds: 300),
@@ -62,10 +40,15 @@ class QuickToastConfig {
     ),
   });
 
-  /// Creates a copy of this config with the given fields replaced with new values
+  Alignment get alignment => Alignment(
+        horizontalPosition.alignmentX,
+        verticalPosition.alignmentY,
+      );
+
   QuickToastConfig copyWith({
     TextStyle? textStyle,
-    Alignment? alignment,
+    ToastVerticalPosition? verticalPosition,
+    ToastHorizontalPosition? horizontalPosition,
     ToastSlideDirection? slideDirection,
     Duration? displayDuration,
     Duration? animationDuration,
@@ -77,7 +60,8 @@ class QuickToastConfig {
   }) {
     return QuickToastConfig(
       textStyle: textStyle ?? this.textStyle,
-      alignment: alignment ?? this.alignment,
+      verticalPosition: verticalPosition ?? this.verticalPosition,
+      horizontalPosition: horizontalPosition ?? this.horizontalPosition,
       slideDirection: slideDirection ?? this.slideDirection,
       displayDuration: displayDuration ?? this.displayDuration,
       animationDuration: animationDuration ?? this.animationDuration,
@@ -87,21 +71,5 @@ class QuickToastConfig {
       borderRadius: borderRadius ?? this.borderRadius,
       contentPadding: contentPadding ?? this.contentPadding,
     );
-  }
-}
-
-/// Extension to get initial offset based on slide direction
-extension ToastSlideDirectionExtension on ToastSlideDirection {
-  Offset get initialOffset {
-    switch (this) {
-      case ToastSlideDirection.left:
-        return const Offset(-1.0, 0.0);
-      case ToastSlideDirection.right:
-        return const Offset(1.0, 0.0);
-      case ToastSlideDirection.top:
-        return const Offset(0.0, -1.0);
-      case ToastSlideDirection.bottom:
-        return const Offset(0.0, 1.0);
-    }
   }
 }

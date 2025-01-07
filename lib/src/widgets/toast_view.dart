@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 
-import '../../quick_toast.dart';
+import '../configs/quick_toast_config.dart';
+import '../models/toast_data.dart';
+import '../utils/toast_slide_extension.dart';
 
 class ToastView extends StatefulWidget {
   final ToastData data;

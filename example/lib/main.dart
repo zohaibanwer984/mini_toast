@@ -17,11 +17,12 @@ class MyApp extends StatelessWidget {
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
-        alignment: Alignment.topRight,
-        slideDirection: ToastSlideDirection.left,
+        horizontalPosition: ToastHorizontalPosition.center,
+        verticalPosition: ToastVerticalPosition.bottom,
+        slideDirection: ToastSlideDirection.bottom,
         displayDuration: Duration(seconds: 5),
         animationDuration: Duration(milliseconds: 400),
-        margin: EdgeInsets.all(16),
+        margin: EdgeInsets.all(8),
       ),
     );
     return ToastOverlayWrapper(
@@ -57,7 +58,7 @@ class MyHomePage extends StatelessWidget {
                 QuickToast.instance.show(
                   message: 'Operation completed successfully!',
                   variant: ToastVariant.success,
-                  duration: const Duration(seconds: 2),
+                  displayDuration: const Duration(seconds: 2),
                 );
               },
             ),
@@ -68,7 +69,7 @@ class MyHomePage extends StatelessWidget {
                 QuickToast.instance.show(
                   message: 'Something went wrong!',
                   variant: ToastVariant.error,
-                  duration: const Duration(seconds: 3),
+                  displayDuration: const Duration(seconds: 3),
                 );
               },
             ),
@@ -79,7 +80,7 @@ class MyHomePage extends StatelessWidget {
                 QuickToast.instance.show(
                   message: 'Here is some information',
                   variant: ToastVariant.info,
-                  duration: const Duration(seconds: 2),
+                  displayDuration: const Duration(seconds: 2),
                 );
               },
             ),
@@ -90,17 +91,17 @@ class MyHomePage extends StatelessWidget {
                 QuickToast.instance.show(
                   message: 'First Toast',
                   variant: ToastVariant.info,
-                  duration: const Duration(seconds: 7),
+                  displayDuration: const Duration(seconds: 7),
                 );
                 QuickToast.instance.show(
                   message: 'Second Toast',
                   variant: ToastVariant.success,
-                  duration: const Duration(seconds: 3),
+                  displayDuration: const Duration(seconds: 3),
                 );
                 QuickToast.instance.show(
                   message: 'Third Toast',
                   variant: ToastVariant.error,
-                  duration: const Duration(seconds: 5),
+                  displayDuration: const Duration(seconds: 5),
                 );
               },
             ),
