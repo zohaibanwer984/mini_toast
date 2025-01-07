@@ -78,8 +78,9 @@ class _ToastViewState extends State<ToastView>
                 children: [
                   Icon(
                     widget.data.variant.icon,
-                    color:
-                        widget.data.iconColor ?? widget.data.variant.textColor,
+                    color: widget.data.iconColor ??
+                        widget.config.iconColor ??
+                        widget.data.variant.textColor,
                   ),
                   Text(
                     widget.data.message,

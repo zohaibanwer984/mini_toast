@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
           fontSize: _fontSize,
           fontWeight: FontWeight.w500,
         ),
+        iconColor: Colors.red,
         horizontalPosition: _horizontalPosition,
         verticalPosition: _verticalPosition,
         slideDirection: _slideDirection,

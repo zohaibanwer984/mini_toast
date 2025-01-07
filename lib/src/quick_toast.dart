@@ -31,7 +31,7 @@ class QuickToast {
       variant: variant,
       duration: displayDuration ?? _config.displayDuration,
       textStyle: textStyle,
-      iconColor: iconColor,
+      iconColor: iconColor ?? _config.iconColor,
       horizontalPosition: _config.horizontalPosition,
       verticalPosition: _config.verticalPosition,
     );
