@@ -29,21 +29,21 @@ enum ToastVariant {
   success(
     backgroundColor: Colors.green,
     textColor: Colors.white,
-    icon: Icons.check_circle_outline,
+    iconData: Icons.check_circle_outline,
   ),
 
   /// Represents an error or failure.
   error(
     backgroundColor: Colors.red,
     textColor: Colors.white,
-    icon: Icons.cancel_outlined,
+    iconData: Icons.cancel_outlined,
   ),
 
   /// Represents informational messages.
   info(
     backgroundColor: Colors.blue,
     textColor: Colors.white,
-    icon: Icons.info_outline,
+    iconData: Icons.info_outline,
   );
 
   /// The background color associated with this variant.
@@ -52,17 +52,17 @@ enum ToastVariant {
   /// The text color associated with this variant.
   final Color textColor;
 
-  /// The Icon assoicated with this variant.
-  final IconData icon;
+  /// The IconData assoicated with this variant.
+  final IconData iconData;
 
   /// Creates a [ToastVariant] with the specified colors.
   ///
   /// - [backgroundColor]: The color used for the toast background.
   /// - [textColor]: The color used for the text in the toast.
-  /// - [icon]: The icon used for the text in the toast.
+  /// - [iconData]: The icon used for the text in the toast.
   const ToastVariant({
     required this.backgroundColor,
     required this.textColor,
-    required this.icon,
+    required this.iconData,
   });
 }

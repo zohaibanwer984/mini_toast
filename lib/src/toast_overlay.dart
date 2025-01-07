@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
+/// A global key used to access the [ToastOverlayState].
 final overlayKey = GlobalKey<ToastOverlayState>(debugLabel: 'toast_overlay');
 
 /// A wrapper widget that provides an overlay for displaying toast notifications.
 ///
-/// The [ToastOverlayWrapper] is designed to wrap the application's root widget
-/// (e.g., `MaterialApp`). It integrates an [Overlay] to allow toasts to be displayed
-/// above the current UI.
+/// This widget wraps the application's root widget (e.g., `MaterialApp`) and
+/// integrates an [Overlay] for displaying toast messages above the UI.
 ///
-/// **Usage:**
+/// **Usage Example:**
 /// ```dart
 /// void main() {
 ///   runApp(
@@ -21,14 +21,12 @@ final overlayKey = GlobalKey<ToastOverlayState>(debugLabel: 'toast_overlay');
 /// }
 /// ```
 ///
-/// Use the global `overlayKey` to access the [ToastOverlayState] and display toasts.
+/// Use the global `overlayKey` to access the [ToastOverlayState] for displaying toasts.
 class ToastOverlayWrapper extends StatelessWidget {
   /// The child widget to be wrapped, typically the app's root widget.
   final Widget child;
 
   /// Creates a [ToastOverlayWrapper].
-  ///
-  /// - [child]: The widget that will be wrapped.
   const ToastOverlayWrapper({super.key, required this.child});
 
   @override
@@ -37,9 +35,9 @@ class ToastOverlayWrapper extends StatelessWidget {
 
 /// A private [StatefulWidget] that manages the overlay for toasts.
 ///
-/// This widget is internal to the library and should not be used directly.
+/// This is an internal widget and should not be used directly.
 class _ToastOverlay extends StatefulWidget {
-  /// The child widget to be displayed under the overlay.
+  /// The child widget displayed beneath the overlay.
   final Widget child;
 
   /// Creates a [_ToastOverlay] with the specified child.
@@ -51,19 +49,16 @@ class _ToastOverlay extends StatefulWidget {
 
 /// Abstract class defining the state for a toast overlay.
 ///
-/// This class provides the [overlayState] getter for accessing the
-/// overlay associated with the current context.
+/// This provides access to the [OverlayState] for the overlay in the current context.
 abstract class ToastOverlayState<T extends StatefulWidget> extends State<T> {
-  /// The [OverlayState] for the current overlay.
-  ///
-  /// Returns `null` if no overlay is found.
+  /// Returns the [OverlayState] for the current overlay, or `null` if not found.
   OverlayState? get overlayState;
 }
 
 /// Implementation of [ToastOverlayState] for managing the toast overlay.
 ///
-/// This class uses the [Navigator] widget in the widget tree to locate
-/// and return the [OverlayState].
+/// This locates the [OverlayState] using the widget tree, specifically
+/// through the [Navigator] widget.
 class _ToastOverlayState extends ToastOverlayState<_ToastOverlay> {
   @override
   Widget build(BuildContext context) => widget.child;
@@ -72,7 +67,7 @@ class _ToastOverlayState extends ToastOverlayState<_ToastOverlay> {
   OverlayState? get overlayState {
     NavigatorState? navigator;
 
-    // Helper method to traverse the widget tree and locate the Navigator.
+    // Helper function to locate the Navigator widget in the tree.
     void visitor(Element element) {
       if (navigator != null) return;
       if (element.widget is Navigator) {
@@ -82,7 +77,7 @@ class _ToastOverlayState extends ToastOverlayState<_ToastOverlay> {
       }
     }
 
-    // Begin traversal from the current context.
+    // Start traversal from the current context.
     context.visitChildElements(visitor);
     return navigator?.overlay;
   }

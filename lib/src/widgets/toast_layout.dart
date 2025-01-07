@@ -4,13 +4,28 @@ import '../quick_toast.dart';
 import '../configs/quick_toast_config.dart';
 import '../enums/toast_position.dart';
 
+/// A layout widget for positioning and managing the display of toast notifications.
+///
+/// The `ToastLayout` calculates the appropriate offset and padding for each toast
+/// based on its position in the stack and the configuration provided. It also measures
+/// the height of its child widget to assist in dynamic positioning of subsequent toasts.
 class ToastLayout extends StatelessWidget {
+  /// The position of the toast in the stack of active toasts.
   final int position;
+
+  /// The child widget representing the toast content.
   final Widget child;
+
+  /// Configuration for the toast's appearance and layout.
   final QuickToastConfig config;
+
+  /// A list of active toasts that precede this one.
   final List<ActiveToast> previousToasts;
+
+  /// Callback to notify the measured height of the toast.
   final ValueChanged<double> onHeightMeasured;
 
+  /// Creates a [ToastLayout] with the given parameters.
   const ToastLayout({
     super.key,
     required this.position,
@@ -31,8 +46,8 @@ class ToastLayout extends StatelessWidget {
             offset: _calculateOffset(),
             child: ConstrainedBox(
               constraints: const BoxConstraints(
-                maxWidth: 400,
-                minWidth: 200,
+                maxWidth: 400, // Maximum width for the toast
+                minWidth: 200, // Minimum width for the toast
               ),
               child: _MeasureSize(
                 onChange: onHeightMeasured,
@@ -45,13 +60,14 @@ class ToastLayout extends StatelessWidget {
     );
   }
 
+  /// Calculates the offset for the toast based on its position and previous toasts' heights.
   Offset _calculateOffset() {
     double totalOffset = 0;
 
-    // Calculate offset based on previous toasts' actual heights
+    // Accumulate the total height of previous toasts with spacing.
     for (int i = 0; i < position; i++) {
       final previousHeight =
-          previousToasts[i].height ?? 60.0; // fallback height
+          previousToasts[i].height ?? 60.0; // Fallback height if not measured.
       totalOffset += previousHeight + config.toastSpacing;
     }
 
@@ -67,14 +83,15 @@ class ToastLayout extends StatelessWidget {
 
     double dx = 0;
     if (config.horizontalPosition == ToastHorizontalPosition.left) {
-      dx = 20;
+      dx = 20; // Offset for left alignment
     } else if (config.horizontalPosition == ToastHorizontalPosition.right) {
-      dx = -20;
+      dx = -20; // Offset for right alignment
     }
 
     return Offset(dx, dy);
   }
 
+  /// Calculates padding for the toast based on its alignment and margin configuration.
   EdgeInsets _calculatePadding() {
     final margin = config.margin;
     final isCenter = config.alignment.y == 0;
@@ -95,11 +112,18 @@ class ToastLayout extends StatelessWidget {
   }
 }
 
-// Add this new widget to measure sizes
+/// A widget that measures the size of its child and notifies when the size changes.
+///
+/// This is useful for dynamically determining the height of toast widgets to adjust
+/// their layout accordingly.
 class _MeasureSize extends StatefulWidget {
+  /// The child widget whose size is to be measured.
   final Widget child;
+
+  /// Callback to notify the height of the child widget.
   final ValueChanged<double> onChange;
 
+  /// Creates a [_MeasureSize] widget.
   const _MeasureSize({
     required this.child,
     required this.onChange,
@@ -109,6 +133,7 @@ class _MeasureSize extends StatefulWidget {
   _MeasureSizeState createState() => _MeasureSizeState();
 }
 
+/// State for [_MeasureSize], responsible for measuring the size of its child widget.
 class _MeasureSizeState extends State<_MeasureSize> {
   final _widgetKey = GlobalKey();
   Size? _oldSize;
@@ -119,6 +144,7 @@ class _MeasureSizeState extends State<_MeasureSize> {
     WidgetsBinding.instance.addPostFrameCallback((_) => _measureSize());
   }
 
+  /// Measures the size of the child widget and notifies if it has changed.
   void _measureSize() {
     final context = _widgetKey.currentContext;
     if (context == null) return;
