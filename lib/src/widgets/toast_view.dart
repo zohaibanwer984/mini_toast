@@ -12,6 +12,7 @@ import '../utils/toast_slide_extension.dart';
 /// **Key Features:**
 /// - Slide and fade animations.
 /// - Customizable appearance based on `ToastData` and `MiniToastConfig`.
+/// - Supports custom content.
 /// - Automatically dismisses itself when animation completes.
 ///
 /// This widget is used internally by the MiniToast library.
@@ -22,6 +23,9 @@ class ToastView extends StatefulWidget {
   /// The configuration for the toast's appearance and behavior.
   final MiniToastConfig config;
 
+  /// The Widget for custom toast content.
+  final Widget? customContent;
+
   /// Callback invoked when the toast is dismissed.
   final VoidCallback onDismiss;
 
@@ -31,13 +35,13 @@ class ToastView extends StatefulWidget {
     required this.data,
     required this.config,
     required this.onDismiss,
+    this.customContent,
   });
 
   @override
   State<ToastView> createState() => _ToastViewState();
 }
 
-/// The state for [ToastView], managing its animations and lifecycle.
 class _ToastViewState extends State<ToastView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
@@ -55,13 +59,10 @@ class _ToastViewState extends State<ToastView>
     );
 
     // Set up fade animation from transparent to visible.
-    _opacity = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
+    _opacity = CurvedAnimation(
       parent: _controller,
       curve: Curves.easeOut,
-    ));
+    );
 
     // Set up slide animation based on the slide direction.
     _slideAnimation = Tween<Offset>(
@@ -82,46 +83,44 @@ class _ToastViewState extends State<ToastView>
       position: _slideAnimation,
       child: FadeTransition(
         opacity: _opacity,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 400, // Maximum width for the toast.
-            minWidth: 200, // Minimum width for the toast.
+        child: Container(
+          padding: widget.config.contentPadding,
+          decoration: BoxDecoration(
+            color: widget.data.variant.backgroundColor,
+            borderRadius: widget.config.borderRadius,
+            boxShadow: widget.config.boxShadow,
           ),
-          child: IntrinsicWidth(
-            child: Container(
-              padding: widget.config.contentPadding,
-              decoration: BoxDecoration(
-                color: widget.data.variant.backgroundColor,
-                borderRadius: widget.config.borderRadius,
-                boxShadow: widget.config.boxShadow,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Icon for the toast.
-                  Icon(
-                    widget.data.variant.iconData,
-                    color: widget.data.iconColor ??
-                        widget.config.iconColor ??
-                        widget.data.variant.textColor,
-                  ),
-                  const SizedBox(width: 8),
-                  // Text message of the toast.
-                  Text(
-                    widget.data.message,
-                    style: widget.config.textStyle?.copyWith(
-                          color: widget.data.variant.textColor,
-                        ) ??
-                        TextStyle(
-                          color: widget.data.variant.textColor,
-                          fontSize: 16,
-                        ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
+          child: widget.customContent != null
+              ? IntrinsicHeight(
+                  child: widget.customContent,
+                )
+              : Row(
+                  mainAxisSize:
+                      MainAxisSize.min, // Ensures the row takes minimum space.
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      widget.data.variant.iconData,
+                      color: widget.data.iconColor ??
+                          widget.config.iconColor ??
+                          widget.data.variant.textColor,
+                    ),
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: Text(
+                        widget.data.message,
+                        style: widget.config.textStyle?.copyWith(
+                              color: widget.data.variant.textColor,
+                            ) ??
+                            TextStyle(
+                              color: widget.data.variant.textColor,
+                              fontSize: 16,
+                            ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
         ),
       ),
     );
