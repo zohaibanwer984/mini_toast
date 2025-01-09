@@ -1,3 +1,11 @@
+## 1.1.0
+
+* Added new features:
+  - Warning variant for toasts with orange background and warning icon
+  - Internal Optimization for better performance
+  - Custom toast support via `showCustom` method allowing any widget to be displayed as toast
+* Existing features remain unchanged
+
 ## 1.0.0
 
 * First public release
