@@ -204,19 +204,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
                 Future.delayed(const Duration(milliseconds: 400), () {
                   MiniToast.instance.showCustom(
-                    displayDuration: const Duration(seconds: 3),
-                    builder: (_) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text("Custom Toast With Button"),
-                          FilledButton(
-                            onPressed: () {},
-                            child: Text("OK"),
-                          ),
-                        ],
-                      );
-                    },
+                    decoration: BoxDecoration(
+                      color: Colors.purple,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    builder: (context) => Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.star, color: Colors.white),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Custom Toast!',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    displayDuration: Duration(seconds: 5),
                   );
                 });
               },
