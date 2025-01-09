@@ -99,6 +99,70 @@ class MiniToast {
     Future.delayed(toastData.duration, () => _removeToast(entry));
   }
 
+  /// Displays a custom widget as a toast notification.
+  ///
+  /// This method allows you to show any widget as a toast, providing maximum
+  /// flexibility for custom toast designs.
+  ///
+  /// - [builder]: Function that returns the custom widget to display
+  /// - [displayDuration]: How long the toast should remain visible
+  /// - [decoration]: Toaster BoxDecration
+  void showCustom({
+    required Widget Function(BuildContext) builder,
+    Decoration? decoration,
+    Duration? displayDuration,
+  }) {
+    final overlayState = _getOverlayState();
+    if (overlayState == null) return;
+
+    // Create toast data with minimal configuration
+    final toastData = ToastData(
+      message: '', // Not used for custom toasts
+      duration: displayDuration ?? _config.displayDuration,
+      verticalPosition: _config.verticalPosition,
+      horizontalPosition: _config.horizontalPosition,
+    );
+
+    late OverlayEntry entry;
+    final toast = ActiveToast(
+      data: toastData,
+      entry: null,
+      height: null,
+    );
+
+    entry = OverlayEntry(
+      builder: (context) => ToastLayout(
+        position: _activeToasts.indexWhere((t) => t.entry == entry),
+        config: _config,
+        previousToasts: _activeToasts,
+        onHeightMeasured: (height) {
+          if (toast.height != height) {
+            toast.height = height;
+            _activeToasts
+                .where((t) => t != toast)
+                .forEach((t) => t.entry?.markNeedsBuild());
+          }
+        },
+        child: Material(
+          type: MaterialType.transparency,
+          child: ToastView(
+            data: toastData,
+            config: _config,
+            onDismiss: () => _removeToast(entry),
+            decoration: decoration,
+            customContent: builder(context),
+          ),
+        ),
+      ),
+    );
+
+    toast.entry = entry;
+    _activeToasts.add(toast);
+    overlayState.insert(entry);
+
+    Future.delayed(toastData.duration, () => _removeToast(entry));
+  }
+
   /// Removes a toast from the overlay.
   ///
   /// This method removes the toast's [OverlayEntry] and refreshes the layout
