@@ -9,7 +9,9 @@ A lightweight, flexible toast notification library for Flutter that automaticall
 - 🎨 **Variants with Icons**: 
   - 🟢 Success toasts with check icon
   - 🔴 Error toasts with cancel icon
+  - 🟡 Warning toast with warning icon
   - 🔵 Info toasts with info icon
+- 💫 **Custom Toast**: Support Custom Widget inside toast
 - 📐 **Flexible Placement**:
   - Vertical: Top or bottom
   - Horizontal: Left, center, or right
