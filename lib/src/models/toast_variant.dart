@@ -18,6 +18,10 @@ import 'package:flutter/material.dart';
 ///   - Background Color: Blue
 ///   - Text Color: White
 ///   - Icon: Info
+/// - [waring]: Provides warning messages.
+///   - Background Color: Orange
+///   - Text Color: White
+///   - Icon: Warning
 ///
 /// **Usage:**
 /// ```dart
@@ -44,6 +48,13 @@ enum ToastVariant {
     backgroundColor: Colors.blue,
     textColor: Colors.white,
     iconData: Icons.info_outline,
+  ),
+
+  /// Represents waring messages.
+  warning(
+    backgroundColor: Colors.orange,
+    textColor: Colors.white,
+    iconData: Icons.warning_amber_outlined,
   );
 
   /// The background color associated with this variant.
