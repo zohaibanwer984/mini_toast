@@ -26,6 +26,9 @@ class ToastView extends StatefulWidget {
   /// The Widget for custom toast content.
   final Widget? customContent;
 
+  /// The Decoration for custom toast container
+  final Decoration? decoration;
+
   /// Callback invoked when the toast is dismissed.
   final VoidCallback onDismiss;
 
@@ -36,6 +39,7 @@ class ToastView extends StatefulWidget {
     required this.config,
     required this.onDismiss,
     this.customContent,
+    this.decoration,
   });
 
   @override
@@ -85,11 +89,12 @@ class _ToastViewState extends State<ToastView>
         opacity: _opacity,
         child: Container(
           padding: widget.config.contentPadding,
-          decoration: BoxDecoration(
-            color: widget.data.variant.backgroundColor,
-            borderRadius: widget.config.borderRadius,
-            boxShadow: widget.config.boxShadow,
-          ),
+          decoration: widget.decoration ??
+              BoxDecoration(
+                color: widget.data.variant.backgroundColor,
+                borderRadius: widget.config.borderRadius,
+                boxShadow: widget.config.boxShadow,
+              ),
           child: widget.customContent != null
               ? IntrinsicHeight(
                   child: widget.customContent,

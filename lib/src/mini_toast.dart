@@ -106,8 +106,10 @@ class MiniToast {
   ///
   /// - [builder]: Function that returns the custom widget to display
   /// - [displayDuration]: How long the toast should remain visible
+  /// - [decoration]: Toaster BoxDecration
   void showCustom({
     required Widget Function(BuildContext) builder,
+    Decoration? decoration,
     Duration? displayDuration,
   }) {
     final overlayState = _getOverlayState();
@@ -147,6 +149,7 @@ class MiniToast {
             data: toastData,
             config: _config,
             onDismiss: () => _removeToast(entry),
+            decoration: decoration,
             customContent: builder(context),
           ),
         ),
