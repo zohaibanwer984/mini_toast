@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../enums/toast_dismiss_behavior.dart';
 import '../utils/toast_position_extension.dart';
 import '../enums/toast_position.dart';
 import '../enums/toast_slide_direction.dart';
@@ -76,6 +77,12 @@ class MiniToastConfig {
   /// If null, the default color based on the toast's theme or variant is used.
   final Color? iconColor;
 
+  /// Determines how the toast can be dismissed by the user.
+  final ToastDismissBehavior dismissBehavior;
+
+  /// The color of the close button (if shown).
+  final Color? closeButtonColor;
+
   /// Creates a new instance of `MiniToastConfig` with customizable properties.
   ///
   /// Example:
@@ -110,6 +117,8 @@ class MiniToastConfig {
       horizontal: 16,
     ),
     this.iconColor,
+    this.dismissBehavior = ToastDismissBehavior.none,
+    this.closeButtonColor,
   });
 
   /// Returns the alignment of the toast based on its vertical and horizontal positions.
@@ -144,6 +153,8 @@ class MiniToastConfig {
     BorderRadius? borderRadius,
     EdgeInsets? contentPadding,
     Color? iconColor,
+    ToastDismissBehavior? dismissBehavior,
+    Color? closeButtonColor,
   }) {
     return MiniToastConfig(
       textStyle: textStyle ?? this.textStyle,
@@ -158,6 +169,8 @@ class MiniToastConfig {
       borderRadius: borderRadius ?? this.borderRadius,
       contentPadding: contentPadding ?? this.contentPadding,
       iconColor: iconColor ?? this.iconColor,
+      dismissBehavior: dismissBehavior ?? this.dismissBehavior,
+      closeButtonColor: closeButtonColor ?? this.closeButtonColor,
     );
   }
 }

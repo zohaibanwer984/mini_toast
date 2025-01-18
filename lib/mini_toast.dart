@@ -10,6 +10,7 @@ export 'src/configs/mini_toast_config.dart';
 // Enums for toast position and slide direction.
 export 'src/enums/toast_position.dart';
 export 'src/enums/toast_slide_direction.dart';
+export 'src/enums/toast_dismiss_behavior.dart';
 
 // Overlay for rendering toast messages.
 export 'src/toast_overlay.dart';
