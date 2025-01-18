@@ -31,7 +31,7 @@ A lightweight, flexible toast notification library for Flutter that automaticall
 Add MiniToast to your `pubspec.yaml`:
 ```yaml
 dependencies:
-  mini_toast: ^1.0.0
+  mini_toast: ^1.2.0
 ```
 
 ## 🚀 Usage
