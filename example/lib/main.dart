@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final Duration _displayDuration = const Duration(seconds: 3);
   Duration _animationDuration = const Duration(milliseconds: 300);
   double _fontSize = 16.0;
+  ToastDismissBehavior _dismissBehavior = ToastDismissBehavior.none;
 
   @override
   void initState() {
@@ -69,6 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
             offset: const Offset(0, 4),
           ),
         ],
+        dismissBehavior: _dismissBehavior,
+        closeButtonColor: Colors.white,
       ),
     );
   }
@@ -157,6 +160,32 @@ class _MyHomePageState extends State<MyHomePage> {
                       _updateToastConfig();
                     });
                   },
+                ),
+              ],
+            ),
+            _buildCard(
+              title: 'Dismiss Settings',
+              children: [
+                _buildDropdown<ToastDismissBehavior>(
+                  label: 'Dismiss Behavior',
+                  value: _dismissBehavior,
+                  items: ToastDismissBehavior.values,
+                  onChanged: (value) {
+                    setState(() {
+                      _dismissBehavior = value!;
+                      _updateToastConfig();
+                    });
+                  },
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: Text(
+                    'Note: Button adds a close icon, Tap allows dismissing by clicking anywhere, None disables manual dismissal',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  ),
                 ),
               ],
             ),

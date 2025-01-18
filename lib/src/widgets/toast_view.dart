@@ -1,6 +1,7 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import '../configs/mini_toast_config.dart';
+import '../enums/toast_dismiss_behavior.dart';
 import '../models/toast_data.dart';
 import '../utils/toast_slide_extension.dart';
 
@@ -55,7 +56,10 @@ class _ToastViewState extends State<ToastView>
   @override
   void initState() {
     super.initState();
+    _setupAnimations();
+  }
 
+  void _setupAnimations() {
     // Initialize the animation controller with the configured duration.
     _controller = AnimationController(
       duration: widget.config.animationDuration,
@@ -81,9 +85,73 @@ class _ToastViewState extends State<ToastView>
     _controller.forward();
   }
 
+  Widget _buildContent() {
+    if (widget.customContent != null) {
+      return IntrinsicHeight(
+          child: Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          widget.customContent!,
+          if (widget.config.dismissBehavior == ToastDismissBehavior.button) ...[
+            const SizedBox(width: 8),
+            IconButton(
+              icon: Icon(
+                Icons.close,
+                size: 20,
+                color: widget.config.closeButtonColor ??
+                    widget.data.variant.textColor,
+              ),
+              onPressed: widget.onDismiss,
+            ),
+          ],
+        ],
+      ));
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          widget.data.variant.iconData,
+          color: widget.data.iconColor ??
+              widget.config.iconColor ??
+              widget.data.variant.textColor,
+        ),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            widget.data.message,
+            style: widget.config.textStyle?.copyWith(
+                  color: widget.data.variant.textColor,
+                ) ??
+                TextStyle(
+                  color: widget.data.variant.textColor,
+                  fontSize: 16,
+                ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        if (widget.config.dismissBehavior == ToastDismissBehavior.button) ...[
+          const SizedBox(width: 8),
+          IconButton(
+            icon: Icon(
+              Icons.close,
+              size: 20,
+              color: widget.config.closeButtonColor ??
+                  widget.data.variant.textColor,
+            ),
+            onPressed: widget.onDismiss,
+          ),
+        ],
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
+    Widget toast = SlideTransition(
       position: _slideAnimation,
       child: FadeTransition(
         opacity: _opacity,
@@ -95,45 +163,25 @@ class _ToastViewState extends State<ToastView>
                 borderRadius: widget.config.borderRadius,
                 boxShadow: widget.config.boxShadow,
               ),
-          child: widget.customContent != null
-              ? IntrinsicHeight(
-                  child: widget.customContent,
-                )
-              : Row(
-                  mainAxisSize:
-                      MainAxisSize.min, // Ensures the row takes minimum space.
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      widget.data.variant.iconData,
-                      color: widget.data.iconColor ??
-                          widget.config.iconColor ??
-                          widget.data.variant.textColor,
-                    ),
-                    const SizedBox(width: 8),
-                    Flexible(
-                      child: Text(
-                        widget.data.message,
-                        style: widget.config.textStyle?.copyWith(
-                              color: widget.data.variant.textColor,
-                            ) ??
-                            TextStyle(
-                              color: widget.data.variant.textColor,
-                              fontSize: 16,
-                            ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
+          child: _buildContent(),
         ),
       ),
     );
+
+    // Wrap with GestureDetector if tap dismiss is enabled
+    if (widget.config.dismissBehavior == ToastDismissBehavior.tap) {
+      toast = GestureDetector(
+        onTap: widget.onDismiss,
+        behavior: HitTestBehavior.opaque,
+        child: toast,
+      );
+    }
+
+    return toast;
   }
 
   @override
   void dispose() {
-    // Clean up the animation controller when the widget is disposed.
     _controller.dispose();
     super.dispose();
   }

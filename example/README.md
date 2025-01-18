@@ -22,7 +22,7 @@ flutter run
 
 ## Features Demonstrated
 - Basic toast notifications
-- Different toast variants (success, error, info)
+- Different toast variants (success, error, info, warning)
 - Custom duration toasts
 - Multiple sequential toasts
 - Material 3 theming

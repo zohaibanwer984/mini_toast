@@ -37,22 +37,25 @@ class ToastLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned.fill(
+    // Calculate total offset directly into Positioned.
+    final offset = _calculateOffset();
+    return Positioned(
+      left: offset.dx,
+      right: -offset.dx, // Adjust right for horizontal offsets.
+      top: offset.dy >= 0 ? offset.dy : 0, // Offset from the top.
+      bottom: offset.dy < 0 ? -offset.dy : 0, // Offset from the bottom.
       child: Align(
         alignment: config.alignment,
         child: Padding(
           padding: _calculatePadding(),
-          child: Transform.translate(
-            offset: _calculateOffset(),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 400, // Maximum width for the toast
-                minWidth: 200, // Minimum width for the toast
-              ),
-              child: _MeasureSize(
-                onChange: onHeightMeasured,
-                child: Container(child: child),
-              ),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: 400, // Maximum width for the toast
+              minWidth: 200, // Minimum width for the toast
+            ),
+            child: _MeasureSize(
+              onChange: onHeightMeasured,
+              child: Container(child: child),
             ),
           ),
         ),
@@ -83,9 +86,9 @@ class ToastLayout extends StatelessWidget {
 
     double dx = 0;
     if (config.horizontalPosition == ToastHorizontalPosition.left) {
-      dx = 20; // Offset for left alignment
+      dx = 20; // Offset for left alignment.
     } else if (config.horizontalPosition == ToastHorizontalPosition.right) {
-      dx = -20; // Offset for right alignment
+      dx = -20; // Offset for right alignment.
     }
 
     return Offset(dx, dy);
